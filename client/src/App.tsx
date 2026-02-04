@@ -20,14 +20,18 @@ function Router() {
   );
 }
 
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider delayDuration={120}>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider defaultTheme="light" storageKey="teacher-app-theme">
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider delayDuration={120}>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 

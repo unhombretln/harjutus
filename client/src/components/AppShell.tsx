@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { BookOpenCheck, Sparkles, TimerReset } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 function setMetaDescription(content: string) {
   const existing = document.querySelector<HTMLMetaElement>('meta[name="description"]');
@@ -96,6 +97,8 @@ export default function AppShell({ children }: PropsWithChildren) {
                   <BookOpenCheck className="h-4 w-4" />
                   Harjutused
                 </Link>
+
+                <ThemeToggle />
               </div>
             </div>
           </div>
