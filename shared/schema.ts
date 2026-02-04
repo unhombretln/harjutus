@@ -45,6 +45,7 @@ export const exercises = pgTable("exercises", {
   grade: text("grade").notNull(), // "1" | "2" | "3" | "4"
   subject: subjectEnum("subject").notNull(),
   difficulty: difficultyEnum("difficulty").notNull(),
+  theme: text("theme"),
   title: text("title").notNull(),
   instructions: text("instructions").notNull(),
   // Optional teacher hints / answer checks depending on task
@@ -62,6 +63,7 @@ export const generateExerciseRequestSchema = z.object({
   grade: z.enum(["1", "2", "3", "4"]),
   subject: z.enum(["matemaatika", "loogika", "emotsionaalne_soojendus"]),
   difficulty: z.enum(["baas", "raskem"]),
+  theme: z.string().optional(),
 });
 
 export type Exercise = typeof exercises.$inferSelect;
