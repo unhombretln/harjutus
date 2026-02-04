@@ -79,8 +79,9 @@ export function buildExercisePrompt(input: GenerateExerciseRequest): string {
     "Vältida keerulist tausta või pikkasid tekste.",
     "Valikud: ${gradeLabel}, aine: ${subjectText}, raskus: ${difficultyLabel}.",
     "Sinu ülesanne on luua harjutus järgmiste reeglite järgi:",
-    "- Matemaatika: Ainult kirjalik või suuline vastamine (arvutamine, tekstülesanne). Ei mingit liikumist.",
-    "- Loogika ja Emotsionaalne soojendus: Segatüüpi (liikumine või kirjalik/suuline).",
+    "- Matemaatika: Ainult kirjalik või suuline vastamine (arvutamine, tekstülesanne). Ei mingit liikumist ega emotsionaalseid teemasid.",
+    "- Loogika: Segatüüpi (liikumine või kirjalik/suuline). Mõistatused, mustrid, järjestused.",
+    "- Emotsionaalne soojendus: Ainult tunnete, enesetunde, lõdvestumise ja sotsiaalsete oskustega seotud harjutused (nt hingamine, tänulikkus, vaikuseminutid). MITTE mingit matemaatikat ega arvutamist selles aines.",
     "Väljund peab olema rangelt JSON (ilma markdownita) järgmise skeemi järgi:",
     JSON.stringify(
       {
