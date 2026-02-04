@@ -146,6 +146,7 @@ export async function registerRoutes(
         grade: input.grade,
         subject: input.subject,
         difficulty: input.difficulty,
+        theme: input.theme || null,
         title: generated.title.trim(),
         instructions: generated.instructions.trim(),
         expectedAnswer: generated.expectedAnswer?.trim() || undefined,

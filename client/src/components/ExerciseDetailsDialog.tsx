@@ -56,6 +56,11 @@ export default function ExerciseDetailsDialog({
                         <Badge className="rounded-full border border-border bg-background/60 text-foreground/80">
                           {exercise.difficulty === "baas" ? "Baas" : "Raskem"}
                         </Badge>
+                        {exercise.theme && (
+                          <Badge className="rounded-full border border-accent/20 bg-accent/10 text-accent">
+                            {exercise.theme}
+                          </Badge>
+                        )}
                       </>
                     )}
                   </div>

@@ -95,6 +95,14 @@ export default function ExerciseCard({
               >
                 {difficultyLabel(exercise.difficulty)}
               </Badge>
+              {exercise.theme && (
+                <Badge
+                  className="rounded-full border border-accent/20 bg-accent/10 text-accent hover:bg-accent/15"
+                  data-testid="exercise-badge-theme"
+                >
+                  {exercise.theme}
+                </Badge>
+              )}
             </div>
 
             <h2

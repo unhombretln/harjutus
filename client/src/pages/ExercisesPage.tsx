@@ -11,7 +11,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { RefreshCcw, Sparkles, Loader2, Wand2, List } from "lucide-react";
+import { RefreshCcw, Sparkles, Loader2, Wand2, List, BookOpen } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Grade = GenerateExerciseInput["grade"];
 type Subject = GenerateExerciseInput["subject"];
@@ -35,6 +42,12 @@ const difficultyOptions: { value: Difficulty; label: string; description: string
   { value: "raskem", label: "Raskem", description: "Väike väljakutse" },
 ];
 
+const themesBySubject: Record<Subject, string[]> = {
+  matemaatika: ["Arvutamine", "Tekstülesanded", "Geomeetria", "Mõõtmine", "Kell"],
+  loogika: ["Mustrid", "Mõistatused", "Järjestamine", "Võrdlemine", "Ruumiline taju"],
+  emotsionaalne_soojendus: ["Hingamine", "Tänulikkus", "Tunnete märkamine", "Sõbralikkus", "Vaikuseminutid"],
+};
+
 function subjectLabel(subject: Subject) {
   switch (subject) {
     case "matemaatika":
@@ -50,6 +63,7 @@ export default function ExercisesPage() {
   const [grade, setGrade] = useState<Grade>("2");
   const [subject, setSubject] = useState<Subject>("matemaatika");
   const [difficulty, setDifficulty] = useState<Difficulty>("baas");
+  const [theme, setTheme] = useState<string>("all");
 
   const [generated, setGenerated] = useState<Exercise | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
@@ -59,8 +73,10 @@ export default function ExercisesPage() {
   const history = useExerciseHistory({ grade, subject, difficulty, limit: 10 });
 
   const subtitle = useMemo(() => {
-    return `${grade}. klass • ${subjectLabel(subject)} • ${difficulty === "baas" ? "Baas" : "Raskem"}`;
-  }, [grade, subject, difficulty]);
+    return `${grade}. klass • ${subjectLabel(subject)} • ${difficulty === "baas" ? "Baas" : "Raskem"}${theme !== "all" ? ` • ${theme}` : ""}`;
+  }, [grade, subject, difficulty, theme]);
+
+  const currentThemes = useMemo(() => themesBySubject[subject], [subject]);
 
   return (
     <AppShell>
@@ -87,6 +103,7 @@ export default function ExercisesPage() {
                     setGrade("2");
                     setSubject("matemaatika");
                     setDifficulty("baas");
+                    setTheme("all");
                     setGenerated(null);
                   }}
                 >
@@ -105,7 +122,7 @@ export default function ExercisesPage() {
                   data-testid="generator-generate"
                   onClick={() => {
                     generate.mutate(
-                      { grade, subject, difficulty },
+                      { grade, subject, difficulty, theme: theme === "all" ? undefined : theme },
                       {
                         onSuccess: (ex) => {
                           setGenerated(ex as unknown as Exercise);
@@ -141,10 +158,32 @@ export default function ExercisesPage() {
               <FilterPills
                 label="Aine"
                 value={subject}
-                onChange={setSubject}
+                onChange={(s) => {
+                  setSubject(s as Subject);
+                  setTheme("all");
+                }}
                 options={subjectOptions}
                 testId="filter-subject"
               />
+              
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-foreground/70 flex items-center gap-2">
+                  <BookOpen className="h-4 w-4" />
+                  Teema (valikuline)
+                </label>
+                <Select value={theme} onValueChange={setTheme}>
+                  <SelectTrigger className="rounded-2xl border-border/70 bg-background/50" data-testid="select-theme">
+                    <SelectValue placeholder="Vali teema" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-2xl">
+                    <SelectItem value="all">Kõik teemad</SelectItem>
+                    {currentThemes.map((t) => (
+                      <SelectItem key={t} value={t}>{t}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
               <FilterPills
                 label="Raskusaste"
                 value={difficulty}
@@ -206,7 +245,7 @@ export default function ExercisesPage() {
                     data-testid="generated-empty-generate"
                     onClick={() => {
                       generate.mutate(
-                        { grade, subject, difficulty },
+                        { grade, subject, difficulty, theme: theme === "all" ? undefined : theme },
                         { onSuccess: (ex) => setGenerated(ex as unknown as Exercise) }
                       );
                     }}
@@ -307,7 +346,7 @@ export default function ExercisesPage() {
                   data-testid="history-empty-generate"
                   onClick={() => {
                     generate.mutate(
-                      { grade, subject, difficulty },
+                      { grade, subject, difficulty, theme: theme === "all" ? undefined : theme },
                       { onSuccess: (ex) => setGenerated(ex as unknown as Exercise) }
                     );
                   }}
