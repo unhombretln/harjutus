@@ -63,6 +63,7 @@ export const storage = new DatabaseStorage();
 export function buildExercisePrompt(input: GenerateExerciseRequest): string {
   const gradeLabel = `klass: ${input.grade}`;
   const difficultyLabel = input.difficulty === "baas" ? "Baas" : "Raskem";
+  const themeLabel = input.theme ? `teema: ${input.theme}` : "vaba teema";
 
   const subjectText =
     input.subject === "matemaatika"
@@ -77,7 +78,7 @@ export function buildExercisePrompt(input: GenerateExerciseRequest): string {
     "Harjutus peab olema eesti keeles, lihtsa ja selge sõnastusega.",
     "Ära kasuta emotikone.",
     "Vältida keerulist tausta või pikkasid tekste.",
-    "Valikud: ${gradeLabel}, aine: ${subjectText}, raskus: ${difficultyLabel}.",
+    `Valikud: ${gradeLabel}, aine: ${subjectText}, raskus: ${difficultyLabel}, ${themeLabel}.`,
     "Sinu ülesanne on luua harjutus järgmiste reeglite järgi:",
     "- Matemaatika: Ainult kirjalik või suuline vastamine (arvutamine, tekstülesanne). Ei mingit liikumist ega emotsionaalseid teemasid.",
     "- Loogika: Segatüüpi (liikumine või kirjalik/suuline). Mõistatused, mustrid, järjestused.",
