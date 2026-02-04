@@ -77,7 +77,8 @@ export function buildExercisePrompt(input: GenerateExerciseRequest): string {
     "Harjutus peab olema eesti keeles, lihtsa ja selge sõnastusega.",
     "Ära kasuta emotikone.",
     "Vältida keerulist tausta või pikkasid tekste.",
-    `Valikud: ${gradeLabel}, aine: ${subjectText}, raskus: ${difficultyLabel}.`,
+    "Valikud: ${gradeLabel}, aine: ${subjectText}, raskus: ${difficultyLabel}.",
+    "Sinu ülesanne on luua 'segatüüpi' harjutus: vaheldumisi pakkuda nii liikumisega seotud (püsti tõusmine, liigutused) kui ka kirjalikke/mõttelisi ülesandeid.",
     "Väljund peab olema rangelt JSON (ilma markdownita) järgmise skeemi järgi:",
     JSON.stringify(
       {
