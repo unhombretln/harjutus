@@ -11,6 +11,8 @@ function subjectLabel(subject: Exercise["subject"]) {
       return "Matemaatika";
     case "loogika":
       return "Loogika";
+    case "eesti_keel":
+      return "Eesti keel";
     case "emotsionaalne_soojendus":
       return "Emotsionaalne soojendus";
     default:

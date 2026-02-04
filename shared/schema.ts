@@ -30,6 +30,7 @@ export const subjectEnum = pgEnum("exercise_subject", [
   "matemaatika",
   "loogika",
   "emotsionaalne_soojendus",
+  "eesti_keel",
 ]);
 
 export const difficultyEnum = pgEnum("exercise_difficulty", [
@@ -61,7 +62,7 @@ export const insertExerciseSchema = createInsertSchema(exercises).omit({
 
 export const generateExerciseRequestSchema = z.object({
   grade: z.enum(["1", "2", "3", "4"]),
-  subject: z.enum(["matemaatika", "loogika", "emotsionaalne_soojendus"]),
+  subject: z.enum(["matemaatika", "loogika", "emotsionaalne_soojendus", "eesti_keel"]),
   difficulty: z.enum(["baas", "raskem"]),
   theme: z.string().optional(),
 });

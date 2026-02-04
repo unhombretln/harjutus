@@ -69,27 +69,31 @@ export function buildExercisePrompt(input: GenerateExerciseRequest): string {
     input.subject === "matemaatika"
       ? "Matemaatika"
       : input.subject === "loogika"
-        ? "Loogika"
-        : "Emotsionaalne soojendus";
+        ? "Logika"
+        : input.subject === "eesti_keel"
+          ? "Eesti keel (L2/keelekümblus)"
+          : "Emotsionaalne soojendus";
 
   return [
-    "Sa oled Eesti algkooli (1–4 klass) õpetaja abiline.",
+    "Sa oled Eesti algkooli (1–4 klass) õpetaja abiline keelekümblusklassis.",
+    "Sihtrühm: Vene emakeelega lapsed, kes õpivad eesti keelt (L2 õpe).",
     "Genereeri ÜKS lühike 5-minutiline harjutus õpilastele.",
-    "Harjutus peab olema eesti keeles, lihtsa ja selge sõnastusega.",
+    "Harjutus peab olema eesti keeles, lihtsa ja selge sõnastusega, arvestades keelekümbluse konteksti.",
     "Ära kasuta emotikone.",
     "Vältida keerulist tausta või pikkasid tekste.",
     `Valikud: ${gradeLabel}, aine: ${subjectText}, raskus: ${difficultyLabel}, ${themeLabel}.`,
     "Sinu ülesanne on luua harjutus järgmiste reeglite järgi:",
-    "- Matemaatika: Ainult kirjalik või suuline vastamine (arvutamine, tekstülesanne). Ei mingit liikumist ega emotsionaalseid teemasid.",
+    "- Matemaatika: Ainult kirjalik või suuline vastamine (arvutamine, tekstülesanne). Ei mingit liikumist ega emotsionaalseid teemasid. Kasuta lihtsat keelt ülesande püstituses.",
     "- Loogika: Segatüüpi (liikumine või kirjalik/suuline). Mõistatused, mustrid, järjestused.",
     "- Emotsionaalne soojendus: Ainult tunnete, enesetunde, lõdvestumise ja sotsiaalsete oskustega seotud harjutused (nt hingamine, tänulikkus, vaikuseminutid). MITTE mingit matemaatikat ega arvutamist selles aines.",
+    "- Eesti keel: Keelekümblusele kohandatud harjutus (L2 õpe). Keskendu sõnavarale, lihtsale õigekirjale või mängulisele keelekasutusele. Väldi liiga akadeemilist või abstraktset keelt.",
     "Väljund peab olema rangelt JSON (ilma markdownita) järgmise skeemi järgi:",
     JSON.stringify(
       {
         title: "Lühike pealkiri",
         instructions: "Kuni ~6 lühikest lauset / sammud",
         expectedAnswer: "Valikuline: kui on konkreetne vastus või kontroll",
-        teacherTip: "Valikuline: 1-2 lühikest soovitust õpetajale",
+        teacherTip: "Valikuline: 1-2 lühikest soovitust õpetajale keelekümbluse toetamiseks",
       },
       null,
       2,
@@ -97,7 +101,8 @@ export function buildExercisePrompt(input: GenerateExerciseRequest): string {
     "Reeglid:",
     "- Matemaatika: väikesed arvud ja klassile sobiv tase.",
     "- Loogika: mustrid, võrdlused, järjestused, lühike mõistatus.",
-    "- Emotsionaalne soojendus: turvalised, positiivsed, lühikesed küsimused/harjutused (nt hingamine, tänulikkus, tunne-sõnad).",
+    "- Emotsionaalne soojendus: turvalised, positiivsed, lühikesed küsimused/harjutused.",
+    "- Eesti keel (L2): teemad nagu õigekiri, sõnamängud, lauseõpetus, sõnavara või lugemine. Kasuta visuaalset toetust (kirjelda seda juhistes).",
     "- Ei mingeid isikuandmeid ega tundlikke teemasid.",
   ].join("\n");
 }

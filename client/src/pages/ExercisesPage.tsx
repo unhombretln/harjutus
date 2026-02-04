@@ -33,6 +33,7 @@ const gradeOptions: { value: Grade; label: string; description: string }[] = [
 
 const subjectOptions: { value: Subject; label: string; description: string }[] = [
   { value: "matemaatika", label: "Matemaatika", description: "Arvud, mõõtmine, mustrid" },
+  { value: "eesti_keel", label: "Eesti keel", description: "Sõnad, mängud, keelekümblus" },
   { value: "loogika", label: "Loogika", description: "Mõtlemine, tähelepanu, reeglid" },
   { value: "emotsionaalne_soojendus", label: "Emotsionaalne", description: "Meelerahu, suhted, enesetunne" },
 ];
@@ -46,6 +47,7 @@ const themesBySubject: Record<Subject, string[]> = {
   matemaatika: ["Arvutamine", "Tekstülesanded", "Geomeetria", "Mõõtmine", "Kell"],
   loogika: ["Mustrid", "Mõistatused", "Järjestamine", "Võrdlemine", "Ruumiline taju"],
   emotsionaalne_soojendus: ["Hingamine", "Tänulikkus", "Tunnete märkamine", "Sõbralikkus", "Vaikuseminutid"],
+  eesti_keel: ["Õigekiri", "Sõnamängud", "Lauseõpetus", "Sõnavara", "Lugemine"],
 };
 
 function subjectLabel(subject: Subject) {
@@ -54,6 +56,8 @@ function subjectLabel(subject: Subject) {
       return "Matemaatika";
     case "loogika":
       return "Loogika";
+    case "eesti_keel":
+      return "Eesti keel";
     case "emotsionaalne_soojendus":
       return "Emotsionaalne soojendus";
   }

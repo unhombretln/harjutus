@@ -36,7 +36,7 @@ export const api = {
         .object({
           grade: z.enum(["1", "2", "3", "4"]).optional(),
           subject: z
-            .enum(["matemaatika", "loogika", "emotsionaalne_soojendus"])
+            .enum(["matemaatika", "loogika", "emotsionaalne_soojendus", "eesti_keel"])
             .optional(),
           difficulty: z.enum(["baas", "raskem"]).optional(),
           limit: z.coerce.number().int().min(1).max(50).optional(),
