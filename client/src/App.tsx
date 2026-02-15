@@ -1,30 +1,25 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
+import { Route, Switch } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import NotFound from "@/pages/not-found";
-import ExercisesPage from "@/pages/ExercisesPage";
-import ExercisePreviewPage from "@/pages/ExercisePreviewPage";
+import HealthTrackerPage from "@/pages/HealthTrackerPage";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={ExercisesPage} />
-      <Route path="/harjutused" component={ExercisesPage} />
-      <Route path="/harjutused/:id" component={ExercisePreviewPage} />
-
-      {/* Fallback to 404 */}
+      <Route path="/" component={HealthTrackerPage} />
+      <Route path="/health" component={HealthTrackerPage} />
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
-
-function App() {
+export default function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="teacher-app-theme">
+    <ThemeProvider defaultTheme="light" storageKey="health-tracker-theme">
       <QueryClientProvider client={queryClient}>
         <TooltipProvider delayDuration={120}>
           <Toaster />
@@ -34,5 +29,3 @@ function App() {
     </ThemeProvider>
   );
 }
-
-export default App;
